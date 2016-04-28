@@ -8,7 +8,7 @@ var model = {
 
 var api = {
   root: "https://api.themoviedb.org/3",
-  token: "TODO" // TODO 0 put your api key here
+  token: "14baeb200d5c3de25c75d2c0712afbbf" // TODO 0 put your api key here
 }
 
 
@@ -27,6 +27,12 @@ function discoverMovies(callback) {
 			console.log("We got a response from The Movie DB!");
 			console.log(response);
 			
+			
+				model.browseItems = response.results;
+				
+				
+			
+			
 			// TODO 2
 			// update the model, setting its .browseItems property equal to the movies we recieved in the response
 			
@@ -44,17 +50,31 @@ function discoverMovies(callback) {
 function render() {
   // TODO 7
   // clear everything from both lists
+  $('#Browse').empty();
+  $('#watchlist').empty();
+  
   
   // TODO 6
+  model.watchlistItems.forEach(function(mov) {
+  	$('#watchlist').append('<li>' + mov.original_title + '</li><br/>');
+  });
+ 
+  
   // for each movie on the user's watchlist, insert a list item into the <ul> in the watchlist section
   
   // for each movie on the current browse list, 
   model.browseItems.forEach(function(movie) {
 		// TODO 3
 		// insert a list item into the <ul> in the browse section
+		$('#Browse').append('<li>' + movie.original_title + '</li><br/>');
 		
 		// TODO 4
 		// the list item should include a button that says "Add to Watchlist"
+		var button = $("<button class='button'>Add to Watchlist</button><br/>").click(function(){
+			model.watchlistItems.push(movie);
+			render();
+		});
+		$('#Browse').append(button);
 		
 		// TODO 5
 		// when the button is clicked, this movie should be added to the model's watchlist and render() should be called again
