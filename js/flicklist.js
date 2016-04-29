@@ -14,7 +14,7 @@ var model = {
 
 var api = {
   root: "https://api.themoviedb.org/3",
-  token: "8e888fa39ec243e662e1fb738c42ae99" // TODO 0 add your api key
+  token: "14baeb200d5c3de25c75d2c0712afbbf" // TODO 0 add your api key
 }
 
 
@@ -46,6 +46,18 @@ function discoverMovies(callback) {
  */
 function searchMovies(query, callback) {
   // TODO 8
+  $.ajax({
+    url: api.root + "/search/movie",
+    data: {
+      api_key: api.token,
+      query: query
+    },
+    success: function (response){
+      model.browseItems = response.results;
+      callback();
+    }
+    
+  });
 
 }
 
@@ -63,7 +75,7 @@ function render() {
   model.watchlistItems.forEach(function(movie) {
     var title = $("<p></p>").text(movie.original_title);
     var itemView = $("<li></li>")
-      .append(title)
+      .append(title).attr('class', 'item-watchlist');
       // TODO 3
       // give itemView a class attribute of "item-watchlist"
 
@@ -79,7 +91,12 @@ function render() {
         model.watchlistItems.push(movie);
         render();
       });
+    var description = $("<p class='description'>" + movie.overview + "</p>");
       // TODO 2
+      if (model.watchlistItems.indexOf(movie) != -1)
+      {
+         button.prop("disabled", true);
+      }
       // the button should be disabled if this movie is already in
       // the user's watchlist
       // see jQuery .prop() and Array.indexOf()
@@ -95,6 +112,7 @@ function render() {
     var itemView = $("<li></li>")
       .append($("<hr/>"))
       .append(title)
+      .append(description)
       .append(button);
 
     // append the itemView to the list
