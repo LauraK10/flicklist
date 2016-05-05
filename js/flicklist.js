@@ -9,7 +9,7 @@ var model = {
 var api = {
 
   root: "https://api.themoviedb.org/3",
-  token: "TODO", // TODO 0 add your api key
+  token: "14baeb200d5c3de25c75d2c0712afbbf", // TODO 0 add your api key
 
   /**
    * Given a movie object, returns the url to its poster image
@@ -18,7 +18,7 @@ var api = {
     // TODO 4b
     // implement this function
 
-    return "http://images5.fanpop.com/image/photos/25100000/movie-poster-rapunzel-and-eugene-25184488-300-450.jpg" 
+    return "http://image.tmdb.org/t/p/w300/" + movie.poster_path; 
   }
 }
 
@@ -76,9 +76,20 @@ function render() {
 
   // insert watchlist items
   model.watchlistItems.forEach(function(movie) {
-    var title = $("<h6></h6>").text(movie.original_title);
+    var title = $("<h6></h6>").text(movie.original_title)
+    
 
     // TODO 1 
+    var buttonWatch=$("<button type='button' class='btn btn-danger'>I watched it</button>").click(function(){
+     
+      model.watchlistItems.splice(model.watchlistItems.indexOf(movie), 1);
+      render();
+    });
+    var panelHeading = $("<div class='panel-heading'></div>").append(title);
+    var image = $("<img class='img-responsive' src='" + api.posterUrl(movie) + "'></img>");
+    var panelBody = $("<div class='panel-body'></div>")
+    .append(image)
+    .append(buttonWatch);
     // add an "I watched it" button and append it below the title
     // Clicking should remove this movie from the watchlist and re-render
 
@@ -86,14 +97,18 @@ function render() {
     // apply the classes "btn btn-danger" to the "I watched it button"
 
     // TODO 4a
+    
     // add a poster image and append it inside the 
     // panel body above the button
-
+    
     // TODO 2g
     // re-implement the li as a bootstrap panel with a heading and a body
-    var itemView = $("<li></li>")
-      .append(title)
-      .attr("class", "item-watchlist");
+    var itemView = $("<li class='panel panel-default'></li>")
+    .append(panelHeading)
+    .append(panelBody);
+    
+    
+      
 
     $("#section-watchlist ul").append(itemView);
   });
@@ -109,7 +124,7 @@ function render() {
 
     var title = $("<h4></h4>").text(movie.original_title);
 
-    var button = $("<button></button>")
+    var button = $("<button class='btn btn-primary'></button>")
       .text("Add to Watchlist")
       .click(function() {
         model.watchlistItems.push(movie);
