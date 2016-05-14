@@ -1,7 +1,4 @@
 
-
-
-
 .jumbotron {
 	text-align: center;
 	margin-bottom: 1%;
@@ -15,7 +12,7 @@
 }
 
 
-#section-watchlist li button {
+#section-watchlist ul li button {
 	width: 100%;
 	margin-top: 10px;
 }
@@ -38,11 +35,20 @@
 	margin-bottom: 2%;
 }
 
+hr {
+	border-color: rgba(128,128,128,0.2);
+}
+
 section header {
 	margin-bottom: 10px;
 }
 
 section {
 	padding: 2%;
+}
+
+#browse-carousel {
+    max-width: 300px;
+    margin: auto;
 }
 

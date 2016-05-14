@@ -9,7 +9,6 @@
   <!--
   TODO add bootstrap js script
   -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css"/>
@@ -24,7 +23,9 @@
     <p class="text-muted">Keep a list of all the movies you've been meaning to watch.</p>
   </header>
 
-  <section id="section-watchlist">
+ 
+  <div class="main-content">
+    <section id="section-watchlist" class="col-md-5">
       <header>
         <h2>My Watchlist</h2>
         <hr/>
@@ -32,42 +33,14 @@
 
       <ul class="list-inline"></ul>
     </section>
-  <div class="main-content">
-    
     
 
-    <section id="section-browse" class="container-fluid">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="row">
-            <div class="col-sm-7" id="browse-info">
-               <h4>Twilight</h4>
-               <hr/>
-               <p>Vampire babies</p>
-            </div>
-            <div class="col-sm-5">
-                <div class="carousel slide" id="browse-carousel" data-ride="carousel">
-                  <ul class="carousel-inner" role="listbox">
-                   
-                  </ul>
-                  <a class="left carousel-control" href="#browse-carousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphyicon-chevron-left"></span>
-                  </a>
-                  <a class="right carousel-control" href="#browse-carousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphyicon-chevron-right"></span>
-                  </a>
-                </div>
-               
-                <button id="add-to-watchlist">Add to watchlist</button>
-            </div>
-            
-          </div>
-        </div>
+    <section id="section-browse" class="col-md-7">
 
       <!-- TODO
       Rearrange the layout of this section using the Bootstrap grid system to match the specification 
       -->
-      <div class="col-sm-4">
+
       <header>
         <h2>Browse Movies</h2>
       </header>
@@ -85,8 +58,8 @@
       implement a carousel inside this section
       You can incorporate this <ul> as the .carousel-inner 
       -->
-      </div>
-    </div>
+      <ul class="list-group"></ul>
+
     </section>
 
   </div>
@@ -108,3 +81,4 @@
   </script>
 
 </body> 
+</html>
