@@ -52,3 +52,16 @@ section {
     margin: auto;
 }
 
+.well {
+	background: red;
+	color: white;
+	border-width: 0px;
+}
+.carousel-inner {
+	padding-left: 0px;
+}
+
+#add-to-watchlist {
+	width: 100%;
+}
+

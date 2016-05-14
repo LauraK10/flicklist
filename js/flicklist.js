@@ -83,7 +83,7 @@ function searchMovies(query, callback) {
 function render() {
 
   var carouselInner = $("#section-browse .carousel-inner");
-  var browseInfo = $("#browse-info");
+  
 
   // clear everything
   
@@ -92,7 +92,7 @@ function render() {
   $("#section-watchlist ul").empty();
   $("#section-browse ul").empty();
   carouselInner.empty();
-  browseInfo.empty();
+
   // render watchlist items
   model.watchlistItems.forEach(function(movie) {
     var title = $("<h6></h6>").text(movie.original_title);
@@ -106,9 +106,10 @@ function render() {
     var button = $("<button></button>")
       .text("I watched it")
       .attr("class", "btn btn-danger")
-      .click(function() {
-        var index = model.watchlistItems.indexOf(movie);
-        model.watchlistItems.splice(index, 1);
+      .click(function(movie) {
+         var index = model.watchlistItems.indexOf(movie);
+         model.watchlistItems.splice(index, 1);
+        
         render();
       });
 
@@ -132,27 +133,49 @@ function render() {
   var activeMovie = model.browseItems[model.activeMovieIndex];
   $("#browse-info h4").text(activeMovie.original_title);
   $("#browse-info p").text(activeMovie.overview);
-  $("#add-to-watchlist")
-  .attr("class", "btn btn-primary")
-  .click(function(){
-    model.watchlistItems.push(activeMovie);
-    render();
-  })
-  .prop("disabled", model.watchlistItems.indexOf(activeMovie) !== -1);
 
-  var posters = model.browseItems.map(function(movie){
+  
+  // var posters = model.browseItems.map(function(movie){
+  //     var poster = $("<img></img>")
+  //     .attr("src", api.posterUrl(movie))
+  //     .attr("class", "img-responsive");
+      
+  //     return $("<li></li>")
+  //     .attr('class', 'item')
+  //     .append(poster);
+  // });
+
+  // $('#section-browse .carousel-inner').append(posters);
+  // posters[model.activeMovieIndex].addClass("active");
+  
+  // render browse items
+  model.browseItems.forEach(function(movie, index) {
       var poster = $("<img></img>")
       .attr("src", api.posterUrl(movie))
       .attr("class", "img-responsive");
       
-      return $("<li></li>")
+       var caritem= $("<div></div>")
       .attr('class', 'item')
       .append(poster);
+      
+      $('.carousel-inner').append(caritem);
+      if (index === model.activeMovieIndex) {
+        caritem.attr("class", "item active");
+      }
   });
- 
-  $('#section-browse .carousel-inner').append(posters);
-  posters[model.activeMovieIndex].addClass("active");
-  // render browse items
+    $("#add-to-watchlist")
+  .attr("class", "btn btn-primary")
+  .prop("disabled", model.watchlistItems.indexOf(activeMovie) !== -1);
+}
+
+
+// When the HTML document is ready, we call the discoverMovies function,
+// and pass the render function as its callback
+$(document).ready(function() {
+  discoverMovies(render);
+});
+
+
   // model.browseItems.forEach(function(movie) {
   //   var title = $("<h4></h4>").text(movie.original_title);
   //   var overview = $("<p></p>").text(movie.overview);
@@ -174,11 +197,8 @@ function render() {
   //   // append the itemView to the list
   //   $("#section-browse ul").append(itemView);
   // });
+  
+function addActiveMovie() {
+   var activeMov = model.browseItems[model.activeMovieIndex];
+   model.watchlistItems.push(activeMov);
 }
-
-
-// When the HTML document is ready, we call the discoverMovies function,
-// and pass the render function as its callback
-$(document).ready(function() {
-  discoverMovies(render);
-});

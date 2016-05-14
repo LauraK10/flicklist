@@ -38,7 +38,7 @@
 
     <section id="section-browse" class="container-fluid">
       <div class="row">
-        <div class="col-sm-8">
+        <div class="well col-sm-8">
           <div class="row">
             <div class="col-sm-7" id="browse-info">
                <h4>Twilight</h4>
@@ -99,11 +99,17 @@
       searchMovies(query, render);
     });
 
+    $("#add-to-watchlist").click(function() {
+        addActiveMovie();
+        render();
+      });
     $("#browse-carousel").on("slid.bs.carousel", function() {
       console.log("the carousel just slid!");
       var newIndex = $("#browse-carousel").find(".active").index();
       // TODO 
       // update the model and then re-render
+      model.activeMovieIndex = newIndex;
+      render();
     });
   </script>
 
